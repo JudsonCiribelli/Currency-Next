@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 interface ExchangeRates {
   [currency: string]: string;
 }
@@ -46,19 +47,71 @@ const ContainerComponent = () => {
     }
   };
 
-  function formatRate(rate: string): string {
-    const rateNumber = parseFloat(rate);
-    return rateNumber.toFixed(3);
-  }
-
   return (
     <div>
-      <h1>Container</h1>
-      {Object.entries(rates).map(([currency, rate]) => (
-        <li key={currency}>
-          {currency}: {formatRate(rate)}
-        </li>
-      ))}
+      <h1>Conversor de Moedas</h1>
+      <div>
+        {/* Valor a ser convertido */}
+        <div>
+          <label>
+            Valor:
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
+          </label>
+        </div>
+
+        {/* Moeda de origem */}
+        <div>
+          <label>
+            De:
+            <select
+              value={fromCurrency}
+              onChange={(e) => setFromCurrency(e.target.value)}
+            >
+              {Object.keys(rates).map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {/* Moeda de destino */}
+        <div>
+          <label>
+            Para:
+            <select
+              value={toCurrency}
+              onChange={(e) => setToCurrency(e.target.value)}
+            >
+              {Object.keys(rates).map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {/* Botão para converter */}
+        <Button variant={"secondary"} onClick={convertCurrency}>
+          Converter
+        </Button>
+
+        {/* Resultado da conversão */}
+        {result !== null && (
+          <div>
+            <h2>Resultado:</h2>
+            <p>
+              {amount} {fromCurrency} = {result.toFixed(3)} {toCurrency}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
