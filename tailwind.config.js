@@ -3,7 +3,11 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 const tailwindConfig = {
   darkMode: ["class"],
-  content: [],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}", // Arquivos na pasta app
+    "./components/**/*.{js,ts,jsx,tsx}", // Componentes reutilizáveis
+    "./lib/**/*.{js,ts,jsx,tsx}", // Funções auxiliares
+  ],
   theme: {
     extend: {
       borderRadius: {
@@ -57,4 +61,5 @@ const tailwindConfig = {
   },
   plugins: [tailwindcssAnimate],
 };
+
 export default tailwindConfig;
